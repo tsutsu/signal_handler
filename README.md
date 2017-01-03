@@ -18,9 +18,9 @@ Then, in `your_handler.ex`:
 defmodule YourHandler
   use System.SignalHandler
 
-	handle :winch do
-	  # oh hey the terminal size changed
-	end
+  handle :winch do
+    # oh hey the terminal size changed
+  end
 end
 ```
 
