@@ -4,9 +4,7 @@
 
 By default, no signals are listened for. For now, you must register any signals you want to respond to at runtime.
 
-**Important note 1:** `System.SignalHandler` runs in the context of an ERTS scheduler thread, so unexpected behavior could occur if you were able to override signal registrations used by ERTS. To avoid this, currently `System.SignalHandler` only allows registration within a specific set of well-known signals, all of which are left to their default implementations by ERTS-8.2.
-
-**Important note 2:** While POSIX signal *names* are standardized, signal *numbers* are OS-dependent. `System.SignalHandler` currently maps the POSIX signal names you provide to Linux signal numbers, and as such, will only work if used on Linux. This will be fixed!
+**Important note:** `System.SignalHandler` runs in the context of an ERTS scheduler thread, so unexpected behavior could occur if you were able to override signal registrations used by ERTS. To avoid this, currently `System.SignalHandler` only allows registration within a specific set of well-known signals, all of which are left to their default implementations by ERTS-8.2.
 
 ## Usage
 
