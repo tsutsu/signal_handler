@@ -2,22 +2,42 @@
 
 `System.SignalHandler` is an Elixir application containing a NIF module. This NIF can register itself as the recipient of arbitrary POSIX signals directed at the Erlang node, and will then hand them off as messages to Erlang-land.
 
-By default, no signals are listened for. For now, you must register any signals you want to respond to at runtime.
+**Important note:** `System.SignalHandler` runs in the context of an ERTS scheduler thread, so unexpected behavior could occur if you were able to override signal registrations used by ERTS. You can see which signals these are using `System.SignalHandler.erts_reserved_signals/0`. It is not recommended to override these signals, but `System.SignalHandler` does nothing to stop you from doing so.
 
-**Important note:** `System.SignalHandler` runs in the context of an ERTS scheduler thread, so unexpected behavior could occur if you were able to override signal registrations used by ERTS. To avoid this, currently `System.SignalHandler` only allows registration within a specific set of well-known signals, all of which are left to their default implementations by ERTS-8.2.
+## Configuration
+
+In your `config.exs`:
+
+```elixir
+config :signal_handler, :modules, [YourHandler]
+```
+
+Then, in `your_handler.ex`:
+
+```elixir
+defmodule YourHandler
+  use System.SignalHandler
+
+	handle :winch do
+	  # oh hey the terminal size changed
+	end
+end
+```
+
+By default, `modules` is `[System.SignalHandler.GracefulShutdown]`, which simply maps `SIGTERM` to `:init.stop`.
 
 ## Usage
 
-Registering a "graceful shutdown" signal:
+Installing a predefined signal-handler module at runtime:
+
+```elixir
+System.SignalHandler.install YourHandler
+```
+
+Registering a one-off signal handler at runtime:
 
 ```elixir
 System.SignalHandler.register :term, &:init.stop/0
-```
-
-Registering an "async info" ^T signal, as seen in `dd(1)`:
-
-```elixir
-System.SignalHandler.register :info, fn -> Logger.debug("some info") end
 ```
 
 Unregistering a signal:
@@ -26,16 +46,11 @@ Unregistering a signal:
 System.SignalHandler.unregister :term
 ```
 
-## Signals
+Getting the state of all known signals:
 
-Signals that can currently be used:
-
-* `:hup`
-* `:term`
-* `:winch`
-* `:info`
-* `:usr`
-* `:usr2`
+```elixir
+System.SignalHandler.signals
+```
 
 ## Installation
 
