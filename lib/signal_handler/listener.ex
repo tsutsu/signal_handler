@@ -17,10 +17,10 @@ defmodule System.SignalHandler.Listener do
   defstruct by_name: nil, by_code: nil, handlers: %{}
 
   def init(_args) do
-    self |> Process.register(:signal_handler)
-    __MODULE__.bind self
+    self() |> Process.register(:signal_handler)
+    __MODULE__.bind self()
 
-    sig_names_by_num = build_signals_map
+    sig_names_by_num = build_signals_map()
     sig_nums_by_name = sig_names_by_num |> Enum.map(fn({k,v}) -> {v,k} end) |> Enum.into(%{})
 
     Task.start_link fn ->
@@ -37,7 +37,7 @@ defmodule System.SignalHandler.Listener do
   end
 
   def handle_call(:get_signals, _from, state) do
-    erts_signals = signal_states |>
+    erts_signals = signal_states() |>
       Enum.map(fn({code, in_state}) -> {get_name(state, code), in_state} end) |>
       Enum.into(MapSet.new)
 
@@ -45,7 +45,7 @@ defmodule System.SignalHandler.Listener do
   end
 
   def handle_call({:get_signals_in_state, in_state}, _from, state) do
-    erts_signals = signal_states |>
+    erts_signals = signal_states() |>
       Enum.filter(fn({_,state}) -> state == in_state end) |>
       Enum.map(&elem(&1,0)) |>
       Enum.map(&get_name(state, &1)) |>
@@ -119,9 +119,9 @@ defmodule System.SignalHandler.Listener do
 
 
   defp build_signals_map do
-    {signum_bound, sigrtmin, sigrtmax} = signal_code_limits
+    {signum_bound, sigrtmin, sigrtmax} = signal_code_limits()
 
-    named_signals = signal_table |> Enum.map(fn({signum, name}) ->
+    named_signals = signal_table() |> Enum.map(fn({signum, name}) ->
       normalized_name = name |> Atom.to_string |> String.downcase |> String.to_atom
       {signum, normalized_name}
     end) |> Enum.into(%{})
