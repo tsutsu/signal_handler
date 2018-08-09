@@ -15,7 +15,7 @@ config :signal_handler, :modules, [YourHandler]
 Then, in `your_handler.ex`:
 
 ```elixir
-defmodule YourHandler
+defmodule YourHandler do
   use System.SignalHandler
 
   handle :winch do
