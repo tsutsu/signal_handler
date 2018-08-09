@@ -58,17 +58,17 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
   1. Add `signal_handler` to your list of dependencies in `mix.exs`:
 
-    ```elixir
-    def deps do
-      [{:signal_handler, "~> 0.1.0"}]
-    end
-    ```
+  ```elixir
+def deps do
+  [{:signal_handler, "~> 0.1.0"}]
+end
+  ```
 
   2. Ensure `signal_handler` is started before your application:
 
-    ```elixir
-    def application do
-      [applications: [:signal_handler]]
-    end
-    ```
+  ```elixir
+def application do
+  [applications: [:signal_handler]]
+end
+  ```
 
