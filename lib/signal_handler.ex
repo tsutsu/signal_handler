@@ -1,6 +1,6 @@
-require Logger
-
 defmodule System.SignalHandler do
+  require Logger
+
   use Application
 
   def start(_type, _args) do
