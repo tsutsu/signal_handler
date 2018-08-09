@@ -24,32 +24,32 @@ defmodule YourHandler do
 end
 ```
 
-By default, `modules` is `[System.SignalHandler.GracefulShutdown]`, which simply maps `SIGTERM` to `:init.stop`.
+By default, `modules` is `[System.SignalHandler.GracefulShutdown]`, which simply maps `SIGTERM` to `:init.stop()`.
 
 ## Usage
 
 Installing a predefined signal-handler module at runtime:
 
 ```elixir
-System.SignalHandler.install YourHandler
+System.SignalHandler.install(YourHandler)
 ```
 
 Registering a one-off signal handler at runtime:
 
 ```elixir
-System.SignalHandler.register :term, &:init.stop/0
+System.SignalHandler.register(:term, &:init.stop/0)
 ```
 
 Unregistering a signal:
 
 ```elixir
-System.SignalHandler.unregister :term
+System.SignalHandler.unregister(:term)
 ```
 
 Getting the state of all known signals:
 
 ```elixir
-System.SignalHandler.signals
+System.SignalHandler.signals()
 ```
 
 ## Installation
