@@ -50,6 +50,7 @@ defmodule System.SignalHandler do
 
   defmacro handle(signal_name, do: block) do
     handler_name = String.to_atom("catch_signal_#{signal_name}")
+
     quote do
       def unquote(handler_name)(), do: unquote(block)
     end
