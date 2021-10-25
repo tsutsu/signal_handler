@@ -1,4 +1,4 @@
-defmodule System.SignalHandler do
+defmodule SignalHandler do
   require Logger
 
   use Application
@@ -7,10 +7,10 @@ defmodule System.SignalHandler do
     import Supervisor.Spec, warn: false
 
     children = [
-      worker(System.SignalHandler.Listener, [])
+      {SignalHandler.Listener, []}
     ]
 
-    opts = [strategy: :one_for_one, name: System.SignalHandler.Supervisor]
+    opts = [strategy: :one_for_one, name: SignalHandler.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -44,7 +44,7 @@ defmodule System.SignalHandler do
 
   defmacro __using__(_opts) do
     quote do
-      import System.SignalHandler, only: [handle: 2]
+      import SignalHandler, only: [handle: 2]
     end
   end
 

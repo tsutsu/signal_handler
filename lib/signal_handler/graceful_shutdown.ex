@@ -1,7 +1,7 @@
-defmodule System.SignalHandler.GracefulShutdown do
-  use System.SignalHandler
+defmodule SignalHandler.GracefulShutdown do
+  require SignalHandler
 
-  handle :term do
+  SignalHandler.handle :term do
     :init.stop()
   end
 end

@@ -39,7 +39,7 @@ defmodule System.SignalHandler.Mixfile do
     [
       app: :signal_handler,
       version: "0.1.1",
-      elixir: "~> 1.3",
+      elixir: "~> 1.12",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       compilers: [:signal_handler_makefile, :elixir, :app],
