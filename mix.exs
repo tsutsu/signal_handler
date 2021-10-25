@@ -32,7 +32,7 @@ defmodule Mix.Tasks.Compile.SignalHandlerMakefile do
   end
 end
 
-defmodule System.SignalHandler.Mixfile do
+defmodule SignalHandler.Mixfile do
   use Mix.Project
 
   def project do
@@ -49,7 +49,7 @@ defmodule System.SignalHandler.Mixfile do
 
   def application do
     [
-      mod: {System.SignalHandler, []},
+      mod: {SignalHandler, []},
       applications: [:logger]
     ]
   end

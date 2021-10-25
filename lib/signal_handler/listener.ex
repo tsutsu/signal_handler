@@ -1,4 +1,4 @@
-defmodule System.SignalHandler.Listener do
+defmodule SignalHandler.Listener do
   require Logger
   use Bitwise
 
@@ -26,7 +26,7 @@ defmodule System.SignalHandler.Listener do
     Task.start_link(fn ->
       configured_handler_modules =
         Application.get_env(:signal_handler, :modules, [
-          System.SignalHandler.GracefulShutdown
+          SignalHandler.GracefulShutdown
         ])
 
       configured_handler_modules

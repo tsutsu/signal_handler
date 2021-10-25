@@ -167,4 +167,4 @@ static ErlNifFunc nif_funcs[] = {
   {"unregister", 1, unregister_signal}
 };
 
-ERL_NIF_INIT(Elixir.System.SignalHandler.Listener, nif_funcs, NULL, NULL, NULL, NULL)
+ERL_NIF_INIT(Elixir.SignalHandler.Listener, nif_funcs, NULL, NULL, NULL, NULL)
