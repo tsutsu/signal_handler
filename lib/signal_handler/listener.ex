@@ -10,6 +10,13 @@ defmodule SignalHandler.Listener do
     :ok = :erlang.load_nif(nif_path, 0)
   end
 
+  def child_spec(_opts) do
+    %{
+      id: make_ref(),
+      start: {__MODULE__, :start_link, []}
+    }
+  end
+
   def start_link do
     GenServer.start_link(__MODULE__, [])
   end

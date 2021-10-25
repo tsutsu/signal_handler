@@ -7,7 +7,7 @@ defmodule SignalHandler do
     import Supervisor.Spec, warn: false
 
     children = [
-      {SignalHandler.Listener, []}
+      SignalHandler.Listener
     ]
 
     opts = [strategy: :one_for_one, name: SignalHandler.Supervisor]
